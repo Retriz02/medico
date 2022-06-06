@@ -22,7 +22,7 @@
     $sql = "SELECT * FROM domicilio";
     $result = $conexionGeneral->query($sql);
                 
-    $sql1 = "SELECT * FROM contacto";
+    $sql1 = "SELECT * FROM contactos";
     $result1 = $conexionGeneral->query($sql1);
     
 
@@ -68,7 +68,7 @@ $perso = mysqli_fetch_assoc($res);
         </div>
         <div>
             <p><span>Nombre</span>
-                <input type="text" name="nombre" required value="<?php echo $dato['Nombre']?>">
+                <input type="text" name="nombre" required value="<?php echo $dato['Nombre_Sanatorio']?>">
             </p>
         </div>
         
@@ -102,7 +102,7 @@ if (isset($_POST["aceptar"])) {
     $cierre = $_POST["cierre"];
 
 
-    $sanatorio = "UPDATE sanatorio SET ID_domicilio_sanatorio= '$domicilio', ID_contacto_sanatorio= '$contacto', ID_medico_sanatorio='$medico', Nombre='$nombre', Dias='$dias', horaApertura='$apertura', horaCierre='$cierre' WHERE ID_sanatorio='$ID_sanatorio' ";
+    $sanatorio = "UPDATE sanatorio SET ID_domicilio_sanatorio= '$domicilio', ID_contacto_sanatorio= '$contacto', ID_medico_sanatorio='$medico', Nombre_Sanatorio='$nombre', Dias='$dias', horaApertura='$apertura', horaCierre='$cierre' WHERE ID_sanatorio='$ID_sanatorio' ";
     $resultado = $conexion->query($sanatorio);
   
     echo "<script type=\"text/javascript\"> window.location='sanatorio1.php';</script>";

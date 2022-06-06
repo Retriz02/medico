@@ -22,7 +22,7 @@
     $sql = "SELECT * FROM domicilio";
     $result = $conexionGeneral->query($sql);
                 
-    $sql1 = "SELECT * FROM contacto";
+    $sql1 = "SELECT * FROM contactos";
     $result1 = $conexionGeneral->query($sql1);
     
 
@@ -68,7 +68,7 @@ $perso = mysqli_fetch_assoc($res);
         </div>
         <div>
             <p><span>Nombre</span>
-                <input type="text" name="nombre" required value="<?php echo $dato['Nombre']?>">
+                <input type="text" name="nombre" required value="<?php echo $dato['Nombre_Consultorio']?>">
             </p>
         </div>
         
@@ -103,7 +103,7 @@ if (isset($_POST["aceptar"])) {
     $cierre = $_POST["cierre"];
 
 
-    $consultorio = "UPDATE consultorio SET ID_domicilio_consultorio= '$domicilio', ID_contacto_consultorio= '$contacto', ID_medico_consultorio='$medico', Nombre='$nombre', Dias='$dias', horaApertura='$apertura', horaCierre='$cierre' WHERE ID_consultorio='$ID_consultorio' ";
+    $consultorio = "UPDATE consultorio SET ID_domicilio_consultorio= '$domicilio', ID_contacto_consultorio= '$contacto', ID_medico_consultorio='$medico', Nombre_Consultorio='$nombre', Dias='$dias', horaApertura='$apertura', horaCierre='$cierre' WHERE ID_consultorio='$ID_consultorio' ";
     $resultado = $conexion->query($consultorio);
   
     echo "<script type=\"text/javascript\"> window.location='consultorio1.php';</script>";

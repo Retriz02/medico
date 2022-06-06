@@ -7,19 +7,15 @@
     <meta name="viewport" content="width=}, initial-scale=1.0">
     <link rel="stylesheet" href="styles/modificarEntrevista.css">
     <title>Document</title>
-
 </head>
 
 <body>
     <?php
     require('medicos.php');
-
-    $ID_Medico = $_GET["id"];
-
-    $sql = "SELECT * FROM entrevista_medicos WHERE ID_entrevistaMedico = $ID_Medico";
     
+    $ID_entrevistaMedico = $_GET["id"];
+    $sql = "SELECT * FROM entrevista_medicos WHERE ID_entrevistaMedico = $ID_entrevistaMedico";
     $resultado = $conexion->query($sql);
-    
     $dato = mysqli_fetch_assoc($resultado);
     
     ?>
@@ -33,20 +29,27 @@
                         <div class="cont-usuario-datos">
                             <div>
                                 <p><span>Medico</span>
-                                    <select value="" id="" name="medico" value="<?php echo $dato['Id_medico_entrevistaMedico']?>"> 
-                                        <option value="1">Acuña Melanie Xiomara</option>
-                                        <option value="2">Romero Carlos Ezequiel</option>
+                                    <select value="" id="" name="medico" value="<?php echo $dato['ID_medico_entrevistaMedico']?>"> 
+                                        <option value="1">Gonzalez Ariadna</option>
+                                        <option value="2">Felix Rojas</option>
+                                        <option value="3">Santa Cruz Rebeca</option>
+                                        <option value="4">Romero Ezequiel</option>
                                     </select>
                                 </p>
                             </div>
                             <div>
                                 <p><span>Usuario</span>
-                                    <select value="" id="" name="usuario" value="<?php echo $dato['Id_usuario_entrevistaMedico']?>">
+                                    <select value="" id="" name="usuario" value="<?php echo $dato['ID_usuario_entrevistaMedico']?>">
+                                        <option value="1">Gonzalez Ariadna</option>
+                                        <option value="2">Felix Rojas</option>
+                                        <option value="3">Santa Cruz Rebeca</option>
+                                        <option value="4">Romero Ezequiel</option>
+                                        <?php 
+                                            require("general.php");
+                                            $sql = "SELECT * FROM personas WHERE ID_persona =". 
+                                            $result = $conexionGeneral->query($sql);
                                         
-                                        <option value="1">Acuña Melanie Xiomara</option>
-                                        <option value="2">Romero Carlos Ezequiel</option>
-                                        <option value="3">Rojas Felix Nolberto</option>
-                                        <option value="4">Santa Cruz Rebeca</option>
+                                        ?>
                                     </select>
                                 </p>
                             </div>
@@ -56,14 +59,9 @@
                     <legend>Domicilio</legend>
                     <div class="cont-dato-domicilio">
 
-                        <select class="domicilio" value="Provincias" name="domicilio" value="<?php echo $dato['Id_domicilio_entrevistaMedico']?>">
-                            
-                            <option value="1">Provincia "Formosa" Localidad "Formosa" Barrio "Eva Perón" Calle "Raul
-                                Alfonsín" Numero "4"</option>
-                            <option value="2">Provincia "Formosa" Localidad "Formosa" Calle "Corrientes" Numero "3"
-                            </option>
-                            <option value="3">Provincia "Chaco" Localidad "Charata" Barrio "Villa Berth"</option>
-
+                        <select class="domicilio" value="Provincias" name="domicilio" value="<?php echo $dato['ID_domicilio_entrevistaMedico']?>">
+                            <option value="1">Av.Saavedra 345</option>
+                            <option value="2">Av.Belgrano 280</option>
                         </select>
                         <button class="btn-agregar">+</button>
                 </fieldset>
@@ -97,7 +95,7 @@
             $observacion = $_POST["observaciones"];
 
             $nuevaEntrevista = "UPDATE entrevista_medicos SET ID_domicilio_entrevistaMedico= '$domicilio', ID_medico_entrevistaMedico= '$medico', ID_usuario_entrevistaMedico='$usuario', Fecha='$fecha', Horario='$horario', Observacion='$observacion' WHERE ID_entrevistaMedico ='$ID_entrevista' ";
-            $resultado = $conexion->query($nuevaEntrevista);
+            $resultado1 = $conexion->query($nuevaEntrevista);
 
             echo "<script type=\"text/javascript\"> window.location='entrevista1.php';</script>";
         } 
