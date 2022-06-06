@@ -1,0 +1,215 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+body {
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  background: #ccc;
+}
+
+.container {
+  max-width: 700px;
+  width: 100%;
+  background: #fff;
+  padding: 10px 30px;
+  border-radius: 5px;
+  background: rgb(168, 168, 168);
+}
+
+.title {
+  font-size: 150%;
+  font-weight: 100;
+  position: relative;
+  text-align: center;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+fieldset {
+  margin-bottom: 1%;
+}
+
+/* PROFESION */
+.selectT,
+.selectTM {
+  width: 70%;
+}
+
+.selectTP,
+.selectTPM {
+  width: 127%;
+}
+
+.selectTProfesiona {
+  justify-content: space-between;
+}
+
+legend {
+  font-size: 100%;
+  font-weight: bold;
+}
+
+form .user-details {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 5px 0 5px 0;
+}
+
+.user-details .input-box {
+  padding: 1%;
+  width: calc(100% / 2 - 20px);
+}
+
+.user-details .input-box .details {
+  font-weight: 500;
+  margin-bottom: 1%;
+  display: block;
+  font-style: oblique;
+  width: 100%;
+}
+
+.selectTProfesional {
+  position: relative;
+  left: 1%;
+}
+
+.cont-matricula {
+  position: relative;
+  right: 14%;
+}
+
+.user-details .input-box input,
+select {
+  height: 50%;
+  width: 90%;
+  outline: none;
+  font-size: 80%;
+}
+
+.user-details .input-box input:focus,
+.user-details .input-box input:valid {
+  border-color: rgb(112, 112, 112);
+}
+
+.input-box-domicilio {
+  padding: 1%;
+}
+
+.input-box-domicilio select {
+  width: 70%;
+}
+
+.user-details .observacion-box {
+  padding: 1%;
+  width: 100%;
+}
+
+.user-details .observacion-box textarea {
+  width: 100%;
+  padding: 1%;
+}
+
+@media (max-width: 584px) {
+  .container {
+    max-width: 100%;
+  }
+
+  form .user-details .input-box {
+    margin-bottom: 15px;
+    width: 100%;
+  }
+}
+
+
+.table {
+  width: 100%;
+  overflow: auto;
+  height: 60px;
+  position: relative;
+  right: 20%;
+}
+
+.table .stiky {
+  position: sticky;
+  top: 0;
+}
+
+.table thead tr .stiky {
+  background: rgb(150, 139, 139);
+  color: #000;
+  border-bottom: 1px solid black;
+}
+
+.table td {
+  border-top: 1px solid #ccc;
+}
+
+.botones {
+  text-align: center;
+  margin-top: 1%;
+}
+
+a {
+  text-decoration: none;
+  padding: .1%;
+  border: 1px solid rgb(129, 129, 129);
+  background: #fff;
+  color: #000;
+}
+
+button {
+  background-color: #eeeeee;
+  border: 1px solid #ccc;
+  padding: 2px;
+
+}
+
+.botones2 {
+  position: relative;
+  left: 35%;
+}
+
+.cont {
+  display: flex;
+  background-color: rgba(0, 0, 0, 0.3);
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  pointer-events: none;
+  opacity: 0;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.mostar {
+  opacity: 1;
+  pointer-events: auto;
+  transition: opacity 0.5s;
+}
+
+.emer {
+  background-color: rgb(170, 169, 169);
+  width: 80%;
+  max-width: 100%;
+  padding: 10px 50px;
+  border-radius: 5px;
+}
+
+.emer h1 {
+  margin-top: 0;
+}
+
+.emer p {
+  opacity: 0.7;
+  font-size: 14px;
+}

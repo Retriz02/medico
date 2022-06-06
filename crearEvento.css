@@ -1,0 +1,65 @@
+*{
+    box-sizing: border-box;
+    padding: 0px;
+    margin: 0px;
+}
+body {
+    background-color: rgb(206, 206, 205);
+    font-family: arial, helvetica, sans-serif;
+}
+.global {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgb(185, 175, 175);
+    width: 60%;
+    height: 98%;
+    border: 1px solid #000;
+    border-radius: 4%;
+    padding: 1%;
+}.global-content{
+    position: relative;
+
+}.title-entrevista {
+    color: rgb(39, 39, 39);
+    font-size: 100%;
+    text-align: center;
+    position: relative;
+    
+}.textarea-observacion {
+    position: relative;
+    left: 1%;
+    display: block;
+    resize: none;
+    width: 98%;
+    outline: none;
+}.container{
+    margin-top: 1%;
+    margin-bottom: 1%;
+}
+fieldset{
+    padding: 2%;
+}
+.container label{
+    display: inline-block;
+    width: 40%;
+    border-bottom: 1px solid rgb(59, 59, 59);
+    font-size: 90%;
+}
+.container legend{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+select{
+    width: 40%;
+}
+.botones{
+    text-align: center;
+}
+button{
+    padding: 0px 4%;
+}.domicilio{
+    text-align: center;
+}.cont-usuario-datos{
+    margin-bottom: 1%;
+}
