@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<?php
+    if(isset($_GET['cerrar_sesion'])){
+        session_unset(); 
+
+        // destroy the session 
+        session_destroy(); 
+    }
+?>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,15 +19,24 @@
 
 <body>
 
+<div class="contenedor-login">
     <form action="comprobarLogin.php" method="POST" class="form">
-        <h1 class="title">Inicia Sesión</h1>
+        
+        <img src="img/logo.svg" alt="Osde Logo" class="logo" srcset="">
+                   
+            <div class="datosUsuario">
+                <span class="forgetPass"><a href="">Olvide mis datos</a></span>
+                    <div class="dato-sesion">
 
-        <input type="text" name="usuario" placeholder="Ingrese su usuario">
+                           <input name="usuario" class="usuario" type="text" placeholder="Usuario" >
+                           <input name="password" class="password"  type="password" placeholder="Contraseña">
+                           <input class="btn-login" name="iniciar" type="submit" value="Iniciar Sesion">
+                </div>
+            </div>
 
-        <input type="password" name="contraseña" placeholder="Ingrese su contraseña">
-
-        <input type="submit" name="iniciar" value="Iniciar Sesión">
     </form>
+</div>
+
 
 </body>
 

@@ -1,30 +1,32 @@
 <?php
-    require("./database/db_general.php");
+    require("general.php");
 
     $usuario = $_POST["usuario"];
-    $contraseña = $_POST["contraseña"];
+    $password = $_POST["password"];
     
-    $sql = "SELECT usuarios.*,  persona.Apellido_persona, persona.Nombre_persona
+    $sql = "SELECT usuarios.*, area.*, persona.ApellidoP, persona.NombreP
     FROM usuarios
-    left JOIN persona ON usuarios.ID_persona_usuario = persona.ID_persona
-    where Contrasenia = '$contraseña' AND nombreUsuario = '$usuario'";
-    $resultado1 = $mysqli->query($sql);
-    $dato= mysqli_fetch_assoc($resultado1);
-
-   
+    LEFT JOIN persona ON usuarios.ID_persona_usuario = persona.ID_persona
+    LEFT JOIN area ON usuarios.ID_area_usuario = area.ID_area
+    where Contrasenia = '$password' AND nombreUsuario = '$usuario'";
+    $resultado = $conexionGeneral->query($sql);
+    $dato= mysqli_fetch_assoc($resultado);
     
-    $sql = "SELECT * FROM usuarios WHERE nombreUsuario = '$usuario' AND Contrasenia = '$contraseña'";
-    $resultado = $mysqli->query($sql);
+    $sql1 = "SELECT * FROM usuarios WHERE nombreUsuario = '$usuario' AND Contrasenia = '$password'";
+    $resultado1 = $conexionGeneral->query($sql1);
 
-    $filas = mysqli_num_rows($resultado);
+    $filas = mysqli_num_rows($resultado1);
  
     if ($filas) {
         session_start();
 
         $_SESSION["usuario"] = $_POST["usuario"];
-        $_SESSION["nombre"] = $dato["Nombre_persona"];
-        $_SESSION["apellido"] = $dato["Apellido_persona"];
-        echo "<script type=\"text/javascript\">window.location='./COMERCIAL/index.php';</script>";
+        $_SESSION["nombre"] = $dato["NombreP"];
+        $_SESSION["apellido"] = $dato["ApellidoP"];
+
+        $_SESSION["nombreUsuario"] = $dato["nombreUsuario"];
+        $_SESSION["area"] = $dato["Descripcion_area"];
+        echo "<script type=\"text/javascript\">window.location='frames/index.php';</script>";
     } else {
-        echo "<script type=\"text/javascript\">alert('¡Ingreso mal algun dato!'); window.location='index.php';</script>";
+        echo "<script type=\"text/javascript\">alert('Los datos que se han ingresado no son correctos'); window.location='index.php';</script>";
     }

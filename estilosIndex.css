@@ -1,56 +1,56 @@
-* {
-    box-sizing: border-box;
-}
+body{
+    background-color: rgb(206, 206, 205);
 
-body {
-    background: #ccc;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    height: 100vh;
+}a{
+    text-decoration: none;
+    color: rgb(76, 76, 147);
 }
-/* ------------------------------ */
-
-form {
-    border-radius: 5px;
+.logo{
+    width: 52%;
+    position: relative;
+    left: 9%;
+    top: -15px;
 }
-
-form h1 {
-    color: black;
-    font-weight: 500;
-    text-align: center;
-}
-
-.form {
-    width: 350px;
-    padding: 20px;
+.contenedor-login{
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: rgb(133, 133, 133);
+    left: 42%;
+    top: 35%;
+}.datoUsuario{
+    position: relative;
+    left: 25%;
 }
-
-.form input[type="text"],
-.form input[type="password"] {
-    border: 0;
-    display: block;
-    margin: 20px auto;
-    text-align: center;
-    padding: 10px 5px;
+.usuario,.password{
+    outline: none;
+    border-color: rgb(155, 206, 252);
     width: 200px;
-    outline: none;
-    border-radius: 5px;
+    height: 24px;
+    font-size: 15px;
+}.password{
+    position: relative;
+    top: 10px;
+}
+.btn-login{
+    background-color: rgb(119, 183, 199);
+    font-size: 15px;
+    padding: 4px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-color: rgba(122, 209, 231, 0.63);
+    position: relative;
+    top: 25px;
+    left: 35px;
+
+
+}.btn-login:hover{
+    background-color:rgb(30,129,176) ;
+}
+input{
+    display: block;
+}.dato-sesion{
+    position: relative;
+    top: 10px;
+}.forgetPass{
+    font-size: 13px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
-.form input[type="submit"] {
-    border: 0;
-    display: block;
-    margin: 20px auto;
-    text-align: center;
-    padding: 14px 40px;
-    outline: none;
-    cursor: pointer;
-    border-radius: 5px;
-    background-color: hsl(0, 1%, 37%);
-}

@@ -7,13 +7,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-
+<?php
+session_start();
+$varsesion = $_SESSION['usuario'];
+if ($varsesion == null || $varsesion = '') {
+    header("location:../index.php");
+}
+?>
 
 <FRAMESET ROWS=9%,* noresize>
     <FRAME SRC="frame_superior.php"></FRAME>
     <FRAMESET COLS=16%,64%,20% > 
         <FRAME SRC="frame_navegador.php" name="navegador"></FRAME>
-        <FRAME SRC="../frame_paginaPrincipal.php" name="paginaPrincipal"></FRAME>
+        <FRAME SRC="frame_paginaPrincipal.php" name="paginaPrincipal"></FRAME>
         <FRAME SRC="agenda.php"></FRAME>
     </FRAMESET>
 </FRAMESET>

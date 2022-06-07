@@ -11,58 +11,44 @@
     <title>Document</title>
 </head>
 <body>
-   
-    <div class="container">
+<div class="container">
         <div class="container-datos">
             <fieldset class="fieldset">
                 <legend>Datos Personales</legend>
-                <div class="fecha"><b>Fecha: </b> 18/04/2022</div>
                 <div class="usuario-area">
-                    <p><b>Usuario:</b>43434 </p>
-                    <p><b>Area: </b> Auditoría Médica</p>
+                    <table>
+                        <tr>
+                            <td>
+                                <b>Fecha:</b><?php echo date("d-m-Y"); ?>
+                            </td>
+                            <td><b>Hora: </b><?php date_default_timezone_set('America/Argentina/Buenos_Aires');
+                                                $DateAndTime = date('h:i:s a', time());
+                                                echo "$DateAndTime."; ?>
+                            </td>
+
+                            <td>
+                                <img src="../img/qr.svg" alt="">
+                                <br>
+                                <a href=""><button>Compartir</button></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <b>Usuario: </b><?php session_start();
+                                                echo $_SESSION["nombreUsuario"] ?>
+                            </td>
+
+                            <td>
+                                <b>Área: </b><?php echo $_SESSION["area"] ?>
+                            </td>
+                        </tr>
+
+                    </table>
                 </div>
-                <button id="btn-abrir-popup" class="btn-abrir-popup">Cambiar Contraseña</button>
             </fieldset>
-        </div>
-        <div class="container-qr">
-            <span class="title">Código QR</span>
-            <div>
-                <img src="../img/qr.svg" alt="">
-            </div>
-            <div class="container-links">
-                <a href="#">
-                <input type="image" src="../img/imprimir.jpg" class="image_buscar">
-                </a>
-            </div>
-            <div class="container-links">
-                <a href="#">
-                <input type="image" src="../img/compartirQR.png" class="image_buscar">
-                </a>
-            </div>
         </div>
     </div>
 
-
-
-    <div class="overlay" id="overlay">
-			<div class="popup" id="popup">
-				<a href="#" id="btn-cerrar-popup" class="btn-cerrar-popup"><i class="fas fa-times"></i></a>
-				<h3>Cambiar Contraseña</h3>
-				<form action="">
-					<div class="contenedor-inputs">
-						<input type="text" placeholder="Contraseña Actual">
-						<input type="email" placeholder="Nueva Contraseña">
-                        <input type="email" placeholder="Confirmar Contraseña">
-					</div>
-					<input type="submit" class="btn-submit" value="Confirmar">
-                    <input type="submit" class="btn-submit" value="Cancelar">
-                
-				</form>
-			</div>
-		</div>
-	</div>
-	<script src="popup.js"></script>
-   
 </body>
 
 </html>

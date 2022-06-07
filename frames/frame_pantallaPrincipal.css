@@ -9,179 +9,80 @@ body{
 /*CSS Datos Personales*/
 
 .container{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    font-family: Arial, Helvetica, sans-serif;
-}.container-datos .fieldset{
-    width: 500px;
-    text-align: center;
-    padding-top: 5%;
-    padding-bottom: 5%;
+   text-align: center;
+}.container-datos{
+	display: inline-block;
+}
+.container-datos .fieldset{
+	display: inline-block;
+	background: #fff;
 }legend{
     color: blue;
-}.fieldset{
-    background: #fff;
-}
-.container-datos .fieldset .fecha{
-    padding-bottom: 50px;
-}.container-datos .fieldset .usuario-area{
-    padding-top: 20px;
-}p{
-    display: inline-block;
-    padding-right: 30px;
-    padding-left: 30px;
+	font-size: 130%;
+}.fieldset table tr td{
+	width: 200px;
+	font-size:100%;
 }
 
 /*CSS QR*/
+img{
+    width: 30%;
+}
 
-.container-qr{
+
+.title p {
+    color: rgb(34, 4, 165);
+    font-size: 120%;
+    display: inline-block;
+    margin: 1%;
+}
+.table-container {
+    border: 1px solid #ccc;
+    overflow: auto;
+    height: 400px;
+    position: relative;
+}
+.container {
+    width: 100%;
+    max-width: 1000px;
+    margin: auto;
+}
+.table {
+    width: 100%;
+    border: 1px solid #ccc;
+    border-collapse: collapse;
+    margin: 0;
+    padding: 0;
+    table-layout: fixed;
+}
+.table .stiky {
+    position: sticky;
+}
+.table thead tr .stiky {
+    background: rgb(150, 139, 139);
+    color: #000;
+    border: 1px solid black;
+}
+.table th,
+.table td {
+    font-size: 100%;
     text-align: center;
-    margin-top: 30px;
-}.container-qr .title{
-    color: blue;
-    padding-bottom: 30px;
-}.container-qr img{
-    width: 150px;
-}.container-links{
-	display: inline-block;
-}
-.container-links a{
-    width: 20px;
-}
-.container-qr .container-links input{
-    margin-left: 30px;
-    margin-right: 30px;
-    width: 30px;
-    height: 30px;
-    background: red;
-}
-/* ------------------------- */
-/* POPUP */
-/* ------------------------- */
-
-.overlay {
-	background: rgba(0,0,0,.3);
-	position: fixed;
-	top: 0;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	align-items: center;
-	justify-content: center;
-	display: flex;
-	visibility: hidden;
+    border-right: 1px solid #ccc;
+    min-width: 150px;
+    padding: .2%;
+    height: 35px;
+   
 }
 
-.overlay.active {
-	visibility: visible;
-}
-.popup {
-	background: #F8F8F8;
-	box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.3);
-	border-radius: 3px;
-	font-family: 'Montserrat', sans-serif;
-	padding: 10px;
-	text-align: center;
-	width: 400px;
-	transition: .3s ease all;
-	transform: scale(0.7);
-	opacity: 0;
+.table tbody th:hover {
+    background-color: rgba(83, 81, 81, 0.3);
 }
 
-.popup .btn-cerrar-popup {
-	font-size: 16px;
-	line-height: 16px;
-	display: block;
-	text-align: right;
-	transition: .3s ease all;
-	color: #BBBBBB;
+.table tr:nth-child(even) {
+    background-color: #ddd;
 }
 
-.popup .btn-cerrar-popup:hover {
-	color: #000;
+.table tr:hover td {
+    background-color: rgb(190, 190, 190);
 }
 
-.popup h3 {
-
-	font-weight: 600;
-	margin-bottom: 10px;
-	opacity: 0;
-}
-
-.popup h4 {
-	font-size: 26px;
-	font-weight: 300;
-	margin-bottom: 40px;
-	opacity: 0;
-}
-
-.popup form .contenedor-inputs {
-	opacity: 0;
-}
-
-.popup form .contenedor-inputs input {
-	width: 100%;
-	margin-bottom: 20px;
-	height: 20px;
-	font-size: 15px;
-	line-height: 52px;
-	text-align: center;
-	border: 1px solid #BBBBBB;
-}
-
-.popup form .btn-submit {
-	padding: 0 20px;
-	height: 30px;
-	line-height: 40px;
-	border: none;
-	color: #fff;
-	background: #5E7DE3;
-	border-radius: 3px;
-	font-family: 'Montserrat', sans-serif;
-	font-size: 15px;
-	cursor: pointer;
-	transition: .3s ease all;
-}
-
-.popup form .btn-submit:hover {
-	background: rgba(94,125,227, .9);
-}
-
-/* ------------------------- */
-/* ANIMACIONES */
-/* ------------------------- */
-.popup.active {	transform: scale(1); opacity: 1; }
-.popup.active h3 { animation: entradaTitulo .8s ease .5s forwards; }
-.popup.active h4 { animation: entradaSubtitulo .8s ease .5s forwards; }
-.popup.active .contenedor-inputs { animation: entradaInputs 1s linear 1s forwards; }
-
-@keyframes entradaTitulo {
-	from {
-		opacity: 0;
-		transform: translateY(-25px);
-	}
-
-	to {
-		transform: translateY(0);
-		opacity: 1;
-	}
-}
-
-@keyframes entradaSubtitulo {
-	from {
-		opacity: 0;
-		transform: translateY(25px);
-	}
-
-	to {
-		transform: translateY(0);
-		opacity: 1;
-	}
-}
-
-@keyframes entradaInputs {
-	from { opacity: 0; }
-	to { opacity: 1; }
-}

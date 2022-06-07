@@ -12,44 +12,49 @@
 
 <body>
     <div class="container">
-
         <div class="container-datos">
             <fieldset class="fieldset">
                 <legend>Datos Personales</legend>
                 <div class="usuario-area">
                     <table>
                         <tr>
-                            <td><b>Fecha: </b><?php echo date("d-m-Y"); ?> </p>
+                            <td>
+                                <b>Fecha:</b><?php echo date("d-m-Y"); ?>
                             </td>
-                            <td><b>Hora: </b><?php date_default_timezone_set('America/Argentina/Buenos_Aires');$DateAndTime = date('h:i:s a', time());echo "$DateAndTime."; ?></p>
+                            <td><b>Hora: </b><?php date_default_timezone_set('America/Argentina/Buenos_Aires');
+                                                $DateAndTime = date('h:i:s a', time());
+                                                echo "$DateAndTime."; ?>
+                            </td>
+
+                            <td>
+                                <img src="../img/qr.svg" alt="">
+                                <br>
+                                <a href=""><button>Compartir</button></a>
                             </td>
                         </tr>
                         <tr>
-                            <td><b>Usuario:</b>43444 </td>
-                            <td><b>Area: </b>Auditoria Medica</td>
+                            <td>
+                                <b>Usuario: </b><?php session_start();
+
+                                        echo $_SESSION["ID_usuario"] ?>
+                            </td>
+
+                            <td>
+                                <b>Área: </b><?php echo $_SESSION["area"] ?>
+                            </td>
                         </tr>
+
                     </table>
                 </div>
-                <button>Cambiar Contraseña</button>
             </fieldset>
         </div>
+    </div>
 
-        <div class="container-qr">
-            <span class="title">Código QR</span>
-            <div>
-                <img src="./img/qr.svg" alt="">
-            </div>
-            <div class="container-links">
-                <a href="#">
-                    <input type="submit" class="ir" value="Compartir QR">
-                </a>
-            </div>
-        </div>
 
         <?php
         require("medicos.php");
 
-        $sql = "SELECT entrevista_medicos.*, domicilio.*, usuario.*, medico.*,persona.*
+        $sql = "SELECT entrevista_medicos.*, domicilio.*, usuarios.*, medico.*,persona.*
         FROM entrevista_medicos
         LEFT JOIN general.domicilio on entrevista_medicos.ID_domicilio_entrevistaMedico = domicilio.ID_domicilio
         LEFT JOIN general.usuario on entrevista_medicos.ID_usuario_entrevistaMedico = usuario.ID_usuario

@@ -7,23 +7,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="reset.css">
     <link rel="stylesheet" href="frame_superior.css">
-    <title>Document</title>
+    <title>Osde</title>
 </head>
 
 <body>
-    <header>
+<header>
         <div class="container">
             <nav class="main-nav">
                 <div class="logo">
-                    <span><img src="../img/logo-OSDE.jpg.jpeg" alt=""></span>
+                    <span><a href="frame_paginaPrincipal.php" target="paginaPrincipal"><img src="../img/logo-OSDE.jpg.jpeg" alt=""></a></span>
                 </div>
-                <ul>
-                    <li><a href="#">UDP</a></li>
-                    <li><a href="#">Jorge Britto</a></li>
-                    <li><a href="frame_paginaPrincipal.php" target="paginaPrincipal"><img src="../img/engranaje.jpg" alt=""></a></li>
-                </ul>
+                
+                    <ul>
+                        <li><a href="#"><?php session_start(); echo $_SESSION["nombre"] ." ". $_SESSION["apellido"]?></a></li>
+                   
+                        <li><a href="../cerrar_sesion.php" target="_top">Cerrar Sesion</a></li>
+                        
+                        
+                    </ul>
+              
             </nav>
-</div>
+        </div>
     </header>
 </body>
 
