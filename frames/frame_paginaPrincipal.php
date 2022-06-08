@@ -48,6 +48,56 @@
             </fieldset>
         </div>
     </div>
+    <?php
+
+    $ID_usuario = $_SESSION["ID_usuario"];
+
+    require("medicos.php");
+   
+
+    require("general.php");
+    $sql = "SELECT tareas.*, estado.Descripcion_estado
+    FROM tareas
+    left join estado on tareas.ID_estado = estado.ID_estado
+    where fecha = CURDATE() or ID_usuario = '$ID_usuario' order by fecha";
+    $resultado2 = $mysqli->query($sql);
+    ?>
+
+    <div class="container">
+        <div class="title">
+            <p><b>Actividades del Día</b></p>
+        </div>
+        <div class="table-container">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="stiky">Fecha</th>
+                        <th class="stiky">Horario</th>
+                        <th class="stiky">Observación</th>
+                        <th class="stiky">Tipo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                  
+
+                    <?php
+                    while ($Tareas = mysqli_fetch_assoc($resultado2)) {
+                    ?>
+                        <tr>
+                            <td><?php echo $Tareas["fecha"] ?></td>
+
+                            <td><?php echo $Tareas["hora"] ?></td>
+
+                            <td class="observacion" align="left"><?php echo $Tareas["Tarea_Descripcion"] ?></td>
+
+                            <td class="red">Tareas</td>
+                        </tr>
+                    <?php  } ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
 
 </body>
 

@@ -85,4 +85,43 @@ img{
 .table tr:hover td {
     background-color: rgb(190, 190, 190);
 }
+/* .datos{
+    text-align: left;
+    position: absolute;
+    overflow: auto;
+    max-height: 35px;
+}
+.datos:hover{
+    background: #fff;
+    position: relative;
+    max-height: 70px;
+} */
 
+
+
+/* Estilo de los botones */
+.green {
+    background: rgb(89, 192, 89);
+    padding: 2%;
+    width: 70%;
+    height: 70%;
+}
+.red {
+    background: rgb(199, 71, 71);
+    padding: 2%;
+    width: 70%;
+    height: 70%;
+}
+.blue {
+    background: rgb(147, 147, 211);
+    padding: .2%;
+    width: 20%;
+    font-size: 87%;
+}
+.orange{
+    background: rgb(255, 105, 18);
+}
+.yellow {
+    background: rgb(255, 244, 85);
+    
+}
