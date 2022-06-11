@@ -5,11 +5,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="navegador.css">
-    <title>Document</title>
+    <link rel="stylesheet" href="../styles/estilo_navegador.css">
+    <title>OSDE</title>
 
 </head>
-
+<!--Este frame es el izquierdo superior donde se encuentran los botones para navegar entre pantallas--->
 <body>
 
     <div class="contenedor">
@@ -17,51 +17,52 @@
             <fieldset class="container-navegador">
                 <legend class="titulos" align="center"><b>Navegador</b></legend>
                 <div class="container-links">
-                    <a href="../entrevista1.php" target="paginaPrincipal">
+                    <a href="../entrevistas_medico/lista_entrevista.php" target="paginaPrincipal">
                         <input type="button" value="Entrevistas">
                     </a>
                 </div>
                 <div class="container-links">
-                    <a href="../consultorio1.php" target="paginaPrincipal">
+                    <a href="../consultorio/lista_consultorio.php" target="paginaPrincipal">
                         <input type="button" value="Consultorio">
                     </a>
                 </div>
                 <div class="container-links">
-                    <a href="../sanatorio1.php" target="paginaPrincipal">
+                    <a href="../sanatorio/lista_sanatorio.php" target="paginaPrincipal">
                         <input type="button" value="Sanatorio">
                     </a>
                 </div>
                 <div class="container-links">
-                    <a href="../medico1.php" target="paginaPrincipal">
+                    <a href="../medico/lista_medico.php" target="paginaPrincipal">
                         <input type="button" value="Medicos">
                     </a>
                 </div>
                 <div class="container-links">
-                    <a href="../agenda1.php" target="paginaPrincipal">
+                    <a href="../agenda/lista_agenda.php" target="paginaPrincipal">
                         <input type="button" value="Agenda">
                     </a>
                 </div>
             </fieldset>
         </div>
+
         <div class="container">
-            <form action="buscadorReferidos.php" method="post">
+            <form action="buscador_medicos.php" method="post">
                 <fieldset class="container-buscador">
                     <legend class="titulos" align="center"><b>Buscador</b></legend>
                     <div class="container-inputs">
                         <label for="nav" class="container-inputs-label">Navegador</label>
                         <select name="navegador" id="navegador">
                             <option value="entrevista">Entrevistas</option>
-                            <option value="referido">Medicos</option>
+                            <option value="medicos">Medicos</option>
                             <option value="evento">Agenda</option>
                         </select>
                     </div>
                     <div class="container-inputs">
                         <label for="nav" class="container-inputs-label">Medicos</label>
-                        <select name="referido" id="">
+                        <select name="medicos" id="">
                             <?php
-                            require("../medicos.php");
-                            $referido = $conexion->query("SELECT * FROM medico");
-                            while ($metodo = mysqli_fetch_row($referido)) {
+                            require("../database/db_medico.php");
+                            $medico = $conexion->query("SELECT * FROM medico");
+                            while ($metodo = mysqli_fetch_row($medico)) {
                             ?>
                                 <option value="<?php echo $metodo[0] ?>"><?php echo $metodo[5] . " - " . $metodo[4] ?></option>
                             <?php } ?>

@@ -100,7 +100,7 @@
 
 
     <?php
-    if (isset($_POST["aceptar-agregar"])) {
+    if (isset($_POST["aceptar"])) {
         require("medicos.php");
 
         $persona = $_POST["persona"];

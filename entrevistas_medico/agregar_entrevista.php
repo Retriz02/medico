@@ -12,15 +12,13 @@
 
 <body>
 
-<?php
+    <?php
+        require("../database/db_medico.php");
 
-require("medicos.php");
+        $sql = "SELECT * FROM entrevista_medicos WHERE ID_activo_entrevista_medicos = 1 and ";
 
-$sql = "SELECT * FROM entrevista_medicos";
-
-$resultado = $conexion->query($sql);
-
-?>
+        $resultado = $conexion->query($sql);
+    ?>
     <div class="global">
         <form action="" method="POST">
             <h1 class="title-entrevista">Crear nueva entrevista</h1>

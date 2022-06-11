@@ -8,11 +8,11 @@
     <title>Document</title>
 </head>
 <?php
-session_start();
-$varsesion = $_SESSION['usuario'];
-if ($varsesion == null || $varsesion = '') {
-    header("location:../index.php");
-}
+    session_start();
+    $varsesion = $_SESSION['usuario'];
+    if ($varsesion == null || $varsesion = '') {
+        header("location:../index.php");
+    }
 ?>
 
 <FRAMESET ROWS=9%,* noresize>
@@ -20,7 +20,7 @@ if ($varsesion == null || $varsesion = '') {
     <FRAMESET COLS=16%,64%,20% > 
         <FRAME SRC="frame_navegador.php" name="navegador"></FRAME>
         <FRAME SRC="frame_paginaPrincipal.php" name="paginaPrincipal"></FRAME>
-        <FRAME SRC="agenda.php"></FRAME>
+        <FRAME SRC="googleCalendar.php"></FRAME>
     </FRAMESET>
 </FRAMESET>
 
