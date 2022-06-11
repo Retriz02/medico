@@ -53,7 +53,7 @@
 
                             <?php $medico["ID_medico"] ?>
 
-                            <td><?php echo $medico["NombreP"], " ", $medico["ApellidoP"] ?></td>
+                            <td><?php echo $medico["Nombre_persona"], " ", $medico["Apellido_persona"] ?></td>
 
                             <td><?php echo $medico["Profesion_Descripcion"] ?></td>
 

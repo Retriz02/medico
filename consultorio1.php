@@ -21,7 +21,7 @@
         FROM consultorio
         LEFT JOIN  general.domicilio on consultorio.ID_domicilio_consultorio = domicilio.ID_domicilio
         LEFT JOIN  general.contactos on consultorio.ID_contacto_consultorio = contactos.ID_contacto
-        LEFT JOIN  medicos.medico  on consultorio.ID_medico_consultorio = medico.ID_medico
+        LEFT JOIN  db_medico.medico  on consultorio.ID_medico_consultorio = medico.ID_medico
         LEFT JOIN  general.persona  on medico.ID_persona_medico = persona.ID_persona";
 
         $resultado = $conexion->query($sql) or die ($conexion->error);
@@ -49,11 +49,11 @@
 
                             <td><?php echo $consultorio["Calle"], " ", $consultorio["Numero"] ?></td>
                             <td><?php echo $consultorio["Valor"] ?></td>
-                            <td><?php echo $consultorio["ApellidoP"], " ", $consultorio["NombreP"] ?></td>
+                            <td><?php echo $consultorio["Apellido_persona"], " ", $consultorio["Nombre_persona"] ?></td>
                             <td><?php echo $consultorio["Nombre_Consultorio"] ?></td>
                             <td><?php echo $consultorio["Dias"] ?></td>
-                            <td><?php echo $consultorio["horaApertura"] ?></td>
-                            <td><?php echo $consultorio["horaCierre"] ?></td>
+                            <td><?php echo $consultorio["horaApertura_consultorio"] ?></td>
+                            <td><?php echo $consultorio["horaCierre_consultorio"] ?></td>
 
                             <td><a href="modificar_consultorio.php?id=<?php echo $consultorio["ID_consultorio"] ?>"><button> Modificar </button></a></td>
 

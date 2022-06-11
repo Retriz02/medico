@@ -21,7 +21,7 @@
         FROM sanatorio
         LEFT JOIN general.domicilio on sanatorio.ID_domicilio_sanatorio = domicilio.ID_domicilio
         LEFT JOIN general.contactos on sanatorio.ID_contacto_sanatorio = contactos.ID_contacto
-        LEFT JOIN  medicos.medico  on sanatorio.ID_medico_sanatorio = medico.ID_medico
+        LEFT JOIN  db_medico.medico  on sanatorio.ID_medico_sanatorio = medico.ID_medico
         LEFT JOIN  general.persona  on medico.ID_persona_medico = persona.ID_persona";
         $resultado = $conexion->query($sql) or die ($conexion->error);
     ?>
@@ -51,16 +51,16 @@
 
                             <td><?php echo $sanatorio["Valor"] ?></td>
 
-                            <td><?php echo $sanatorio["ApellidoP"], " ", $sanatorio["NombreP"] ?></td>
+                            <td><?php echo $sanatorio["Apellido_persona"], " ", $sanatorio["Nombre_persona"] ?></td>
 
 
                             <td><?php echo $sanatorio["Nombre_Sanatorio"] ?></td>
 
                             <td><?php echo $sanatorio["Dias"] ?></td>
 
-                            <td><?php echo $sanatorio["horaApertura"] ?></td>
+                            <td><?php echo $sanatorio["horaApertura_sanatorio"] ?></td>
 
-                            <td><?php echo $sanatorio["horaCierre"] ?></td>
+                            <td><?php echo $sanatorio["horaCierre_sanatorio"] ?></td>
 
                             <td><a href="modificar_sanatorio.php?id=<?php echo $sanatorio["ID_sanatorio"] ?>"><button> Modificar </button></a></td>
                           

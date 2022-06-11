@@ -62,8 +62,8 @@ $resultado = $conexion->query($sql);
                     ?>
                         <tr>
                             
-                            <td><?php echo $medico["NombreP"], " ", $medico["ApellidoP"] ?></td>
-                            <td><?php echo $usuario["NombreP"], " ", $usuario["ApellidoP"] ?></td>
+                            <td><?php echo $medico["Nombre_persona"], " ", $medico["Apellido_persona"] ?></td>
+                            <td><?php echo $usuario["Nombre_persona"], " ", $usuario["Apellido_persona"] ?></td>
                             <td><?php echo $agenda["Descripcion_estado"] ?></td>
                             <td><?php echo $agenda["fecha"] ?></td>
                             <td><?php echo $agenda["horario"] ?></td>

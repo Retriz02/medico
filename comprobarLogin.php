@@ -4,7 +4,7 @@
     $usuario = $_POST["usuario"];
     $password = $_POST["password"];
     
-    $sql = "SELECT usuarios.*, area.*, persona.ApellidoP, persona.NombreP
+    $sql = "SELECT usuarios.*, area.*, persona.*
     FROM usuarios
     LEFT JOIN persona ON usuarios.ID_persona_usuario = persona.ID_persona
     LEFT JOIN area ON usuarios.ID_area_usuario = area.ID_area
@@ -21,8 +21,8 @@
         session_start();
 
         $_SESSION["usuario"] = $_POST["usuario"];
-        $_SESSION["nombre"] = $dato["NombreP"];
-        $_SESSION["apellido"] = $dato["ApellidoP"];
+        $_SESSION["nombre"] = $dato["Nombre_persona"];
+        $_SESSION["apellido"] = $dato["Apellido_persona"];
 
         $_SESSION["nombreUsuario"] = $dato["nombreUsuario"];
         $_SESSION["area"] = $dato["Descripcion_area"];

@@ -24,11 +24,11 @@
     require("general.php");
  
 
-    $sql = "SELECT entrevista_medicos.*, domicilio.*, usuario.*, medico.*
+    $sql = "SELECT entrevista_medicos.*, domicilio.*, usuarios.*, medico.*
     FROM entrevista_medicos
     LEFT JOIN general.domicilio on entrevista_medicos.ID_domicilio_entrevistaMedico = domicilio.ID_domicilio
-    LEFT JOIN general.usuario on entrevista_medicos.ID_usuario_entrevistaMedico = usuario.ID_usuario
-    LEFT JOIN medicos.medico on entrevista_medicos.ID_medico_entrevistaMedico = medico.ID_medico";
+    LEFT JOIN general.usuarios on entrevista_medicos.ID_usuario_entrevistaMedico = usuarios.ID_usuario
+    LEFT JOIN db_medico.medico on entrevista_medicos.ID_medico_entrevistaMedico = medico.ID_medico";
 
     $resultado = $conexion->query($sql) or die ($conexion->error);
 
@@ -72,9 +72,9 @@
 
                             <?php $Entrevista["ID_entrevistaMedico"] ?>
 
-                            <td><?php echo $medico["NombreP"], " ", $medico["ApellidoP"] ?></td>
+                            <td><?php echo $medico["Nombre_persona"], " ", $medico["Apellido_persona"] ?></td>
                             
-                            <td><?php echo $usuario["NombreP"], " ", $usuario["ApellidoP"] ?></td>
+                            <td><?php echo $usuario["Nombre_persona"], " ", $usuario["Apellido_persona"] ?></td>
                             
                             <td><?php echo $Entrevista["Calle"], " ", $Entrevista["Numero"] ?></td>
 
