@@ -23,7 +23,6 @@
     $sql1 = "SELECT * FROM especialidades";
     $result1 = $conexion->query($sql1);
     
-  
 ?>
 
 <body>
@@ -95,16 +94,15 @@
 
                     <div class="input-box">
                         <p>
-                            <input type="text" class="input-nroMatricula" placeholder="Nro. Matricula" name="matricula"
+                            <input type="number" class="input-nroMatricula" placeholder="Nro. Matricula" name="matricula"
                                 maxlenght=10>
-                            <input type="text" class="input-nroPrestador" placeholder="Nro. Prestador" name="prestador"
+                            <input type="number" class="input-nroPrestador" placeholder="Nro. Prestador" name="prestador"
                                 maxlenght=10>
                         </p>
                     </div>
 
                 </div>
             </fieldset>
-
             <fieldset>
                 <legend>Contacto</legend>
                 <div class="user-details">
@@ -165,7 +163,7 @@
                             $tipodomicilio = $conexionGeneral->query("SELECT * FROM tipodomicilio");
                             while ($metodo6 = mysqli_fetch_assoc($tipodomicilio)) {
                             ?>
-                                <option value="<?php echo $metodo6['ID_tipoDomicilio'] ?>"><?php echo $metodo6["ID_tipoDomicilio"], " - ", $metodo6["Descripcion_tipoDomicilio"]; ?></option>
+                                <option value="<?php echo $metodo6['ID_tipoDomicilio'] ?>"><?php echo $metodo6["ID_tipoDomicilio"], " - ", $metodo6["Descripcion_tipoDomicilio"] ?></option>
                             <?php } ?>
                         </select>
 

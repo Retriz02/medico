@@ -15,7 +15,7 @@
     <?php
         require("../database/db_medico.php");
 
-        $sql = "SELECT * FROM entrevista_medicos WHERE ID_activo_entrevista_medicos = 1 and ";
+        $sql = "SELECT * FROM entrevista_medicos WHERE ID_activo_entrevistaMedico = 1 and ID_usuario_entrevistaMedico =";
 
         $resultado = $conexion->query($sql);
     ?>

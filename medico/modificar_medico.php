@@ -12,11 +12,19 @@
 <?php 
     session_start();
     $datoUsuario = $_SESSION["ID_usuario"];
-   
-    $ID_medico = $_POST['id']; //recibo el id que manda el boton modificar de lista_medico
 
-    require("../database/db_medico.php");
     require("../database/db_general.php");
+    require("../database/db_medico.php");
+
+    $ID_medico = $_POST['id']; //recibo el id que manda el boton modificar de lista_medico para tomar los datos del medico
+   
+    $sq = $conexion->query("SELECT * FROM medico WHERE ID_medico = $ID_medico");
+    $datoMedico = mysqli_fetch_assoc($sq);
+
+    $ID_persona = $dato['ID_persona_medico'];
+
+    $persona = $conexionGeneral->query("SELECT * FROM persona WHERE ID_persona = $ID_persona");
+    $arrayPersona = mysqli_fetch_assoc($persona);
 
     //tomo los campos de ambas tablas para utilizarlos luego en los combos/select
     $sql = "SELECT * FROM profesion";
@@ -24,8 +32,7 @@
     
     $sql1 = "SELECT * FROM especialidades";
     $result1 = $conexion->query($sql1);
-    
-  
+
 ?>
 
 <body>
@@ -37,18 +44,6 @@
                 <div class="user-details">
                     <div class="input-box">
                         <span class="details">Persona</span>
-                        <select name="persona" id="">
-                            <?php
-                                //selecciona todos los campos de personas y los ordena por el apellido
-                                $persona = $conexionGeneral->query("SELECT * FROM persona order by Apellido_persona");
-                                while ($metodo1 = mysqli_fetch_assoc($persona)) {
-                            ?>
-                            <!--Como valor usamos el ID persona, luego se concatena los datos de la persona para los combos/select-->
-                            <option value="<?php echo $metodo1['ID_persona'] ?>">
-                                <?php echo $metodo1['DNI'] . " - " . $metodo1['Apellido_persona'] . " " .  $metodo1['Nombre_persona'] ?>
-                            </option>
-                            <?php } ?>
-                        </select>
                         <a href="agregarPersona.php" target="rellenarDatos">+</a>
                     </div>
 
@@ -98,9 +93,9 @@
                     <div class="input-box">
                         <p>
                             <input type="text" class="input-nroMatricula" placeholder="Nro. Matricula" name="matricula"
-                                maxlenght=10>
+                                maxlenght=10 value="<?php echo $datoMedico["Nro_Matricula"]; ?>">
                             <input type="text" class="input-nroPrestador" placeholder="Nro. Prestador" name="prestador"
-                                maxlenght=10>
+                                maxlenght=10 value="<?php echo $datoMedico["Nro_Prestador"]; ?>">
                         </p>
                     </div>
 
@@ -115,20 +110,51 @@
 
                     <select name="contacto" id="">
                         <?php
-                            require("../database/db_general.php");
-                            //vincula todos los contactos con la descripcion del tipo de contacto que tienen
-                            $sql4 = $conexionGeneral->query("SELECT contactos.*, tipocontactos.Descripcion_tipoContacto FROM contactos
-                                        LEFT JOIN tipocontactos on contactos.ID_tipoContacto_contacto = tipocontactos.ID_tipoContacto");
-                            
-                            //se convierte en array para asi rellenar el combo con estos contactos
-                            while ($metodo4 = mysqli_fetch_assoc($sql4)) {
+                        require("../database/db_general.php");
+                        $sql1 = $conexionGeneral->query("SELECT contactos.*, tipocontactos.Descripcion_tipoContacto FROM contactos
+                                        left join tipocontactos on contactos.ID_tipoContacto_contacto = tipocontactos.ID_tipoContacto");
+                        while ($metodo1 = mysqli_fetch_assoc($sql1)) {
                         ?>
-                        <!--Como valor usamos el ID contacto, luego se concatena los datos del contacto para los combos/select-->
-                        <option value="<?php echo $metod4["ID_contacto"] ?>">
-                            <?php echo $metodo4["Descripcion_tipoContacto"], " - ", $metodo4["Valor"] ?></option>
+                            <option value="<?php echo $metodo1["ID_contacto"] ?>"><?php echo $metodo1["Descripcion_tipoContacto"], " - ", $metodo1["Valor"] ?></option>
                         <?php } ?>
                     </select>
-                    <a href="agregarContacto.php" target="rellenarDatos">+</a>
+                    <a href="agregarContacto.php" target="rellenarDatos">+</a><input type="submit" value="Igualar Contacto" name="igualarContacto">
+                </div>
+
+
+                <div class="user-details">
+                    <div class="table-container">
+                        <?php
+                        require("../database/db_general.php");
+                        $sql = "SELECT personacontactos.*,persona.ID_persona,contactos.Valor, tipocontactos.Descripcion_tipoContacto
+                        FROM personacontactos
+                        left join persona on personacontactos.ID_persona_persona_contacto = persona.ID_persona
+                        left join contactos on personacontactos.ID_contacto_persona_contacto = contactos.ID_contacto
+                        left join tipocontactos on contactos.ID_tipoContacto_contacto = tipocontactos.ID_tipoContacto
+                        where ID_persona =  $ID_persona";
+                        $resultado = $conexionGeneral->query($sql);
+                        ?>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th class="stiky">Tipo Contacto</th>
+                                    <th class="stiky">Valor</th>
+                                    <th class="stiky">Opciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                while ($metMedico = mysqli_fetch_assoc($resultado)) {
+                                ?>
+                                    <tr>
+                                        <td><?php echo $metMedico["Descripcion_tipoContacto"] ?></td>
+                                        <td><?php echo $metMedico["Valor"] ?></td>
+                                        <td><a href="modificarContacto.php">Modificar</a></td>
+                                    </tr>
+                                <?php  } ?>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </fieldset>
 
@@ -140,19 +166,15 @@
                         <span class="details">Dirección</span>
                         <select name="domicilio" id="" required>
                             <?php
-                                require("../database/db_general.php");
-                                $domicilio = $conexionGeneral->query("SELECT domicilio.*,localidades.*, tipobarrio.*, tipoedificio.*
-                                FROM domicilio 
-                                LEFT JOIN localidades on domicilio.ID_localidad_domicilio= localidades.ID_localidad
-                                LEFT JOIN tipobarrio on domicilio.ID_tipoBarrio_domicilio = tipobarrio.ID_tipoBarrio
-                                LEFT JOIN tipoedificio on domicilio.ID_tipoEdificio_domicilio = tipoedificio.ID_tipoEdificio");
-                                while ($metodo5 = mysqli_fetch_assoc($domicilio)) {
+                            require("../database/db_general.php");
+                            $domicilio = $conexionGeneral->query("SELECT domicilio.*,localidades.*, tipobarrio.*, tipoedificio.*
+                            FROM domicilio 
+                            left join localidades on domicilio.ID_localidad_domicilio= localidades.ID_localidad
+                            left join tipobarrio on domicilio.ID_tipoBarrio_domicilio = tipobarrio.ID_tipoBarrio
+                            left join tipoedificio on domicilio.ID_tipoEdificio_domicilio = tipoedificio.ID_tipoEdificio");
+                            while ($metodo = mysqli_fetch_assoc($domicilio)) {
                             ?>
-
-                            <!--Como valor usamos el ID domicilio, luego se concatena los datos del domicilio para los combos/select-->
-                            <option value="<?php echo $metodo5['ID_domicilio'] ?>">
-                                <?php echo  "Provincia: " . $metodo5['ID_provincia_localidad'] . " | Localidad:  " . $metodo5['Nombre_localidad'] . " | Barrio: " . $metodo5['ID_barrio_tipoBarrio']  . " | Manzana: " . $metodo5['Manzana']  . " | Sector/Parcela: " . $metodo5['Sector_Parcela']  . " | Departamento: " . $metodo5['Departamento']  . " | Piso: " . $metodo5['Piso'] . " | Torre " . $metodo5['Torre'] . " | Calle: " . $metodo5['Calle'] . " | Numero: " . $metodo5['Numero']  ?>
-                            </option>
+                                <option value="<?php echo $metodo['ID_domicilio'] ?>"><?php echo  "Provincia: " . $metodo['ID_provincia_localidad'] . " | Localidad:  " . $metodo['Nombre_localidad'] . " | Barrio: " . $metodo['ID_barrio_tipoBarrio']  . " | Manzana: " . $metodo['Manzana']  . " | Sector/Parcela: " . $metodo['Sector_Parcela']  . " | Departamento: " . $metodo['Departamento']  . " | Piso: " . $metodo['Piso'] . " | Torre " . $metodo['Torre'] . " | Calle: " . $metodo['Calle'] . " | Numero: " . $metodo['Numero']  ?></option>
                             <?php } ?>
                         </select>
                         <a href="agregarDomicilio.php" target="rellenarDatos">+</a>
@@ -163,19 +185,16 @@
                         <span class="details">Tipo Domicilio</span>
                         <select name="tipodomicilio" id="" required>
                             <?php
-                                require("../database/db_general.php");
-                                $tipodomicilio = $conexionGeneral->query("SELECT * FROM tipodomicilio");
-                                while ($metodo6 = mysqli_fetch_assoc($tipodomicilio)) {
+                            require("../database/db_general.php");
+                            $tipodomicilio = $conexionGeneral->query("SELECT * FROM tipodomicilio");
+                            while ($metodo = mysqli_fetch_assoc($tipodomicilio)) {
                             ?>
-                            <option value="<?php echo $metodo6['ID_tipoDomicilio']?>">
-                                <?php echo $metodo6["ID_tipoDomicilio"], " - ", $metodo6["Descripcion_tipoDomicilio"] ?>
-                            </option>
+                                <option value="<?php echo $metodo['ID_tipoDomicilio'] ?>"><?php echo $metodo["ID_tipoDomicilio"], " - ", $metodo["Descripcion_tipoDomicilio"] ?></option>
                             <?php } ?>
                         </select>
 
                     </div>
                 </div>
-
             </fieldset>
             <fieldset>
                 <legend>Información Laboral</legend>

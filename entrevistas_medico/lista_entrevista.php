@@ -84,8 +84,8 @@
 
                             <td><?php echo $Entrevista["Observacion"] ?></td>
 
-                            <td><a href="eliminar_entrevista.php?id= <?php echo $Entrevista["ID_entrevistaMedico"] ?>"><button> Eliminar </button></a></td>
-                            <td><a href="modificar_entrevista.php?id= <?php echo $Entrevista["ID_entrevistaMedico"] ?>"><button> Modificar </button></a></td>
+                            <td><a href="eliminar_entrevista.php?id=<?php echo $Entrevista["ID_entrevistaMedico"] ?>"><button> Eliminar </button></a></td>
+                            <td><a href="modificar_entrevista.php?id=<?php echo $Entrevista["ID_entrevistaMedico"] ?>"><button> Modificar </button></a></td>
                           
 
                         </tr>
