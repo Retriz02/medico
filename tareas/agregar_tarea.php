@@ -5,11 +5,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="agregar_tarea.css">
+    <link rel="stylesheet" href="../styles/agregar_tarea.css">
     <title>Gestionar Tareas</title>
 </head>
 
 <body>
+    <?php 
+        session_start();
+        $datoUsuario = $_SESSION["ID_usuario"];
+    ?>
     <div class="container">
         <div class="title">Agregar Tareas</div>
         <form action="#" method="post">
@@ -18,29 +22,15 @@
                 <legend></legend>
                 <div class="user-details">
                     <div class="input-box">
-                        <span class="details">Medico</span>
-                        <select name="promotor" id="">
-                            <?php
-                            require("../database/db_general.php");
-                            $medico = $conexionGeneral->query("SELECT usuarios.*, persona.*
-                            FROM usuarios
-                            LEFT JOIN persona on usuarios.ID_persona_usuario = persona.ID_persona 
-                            WHERE ID_persona_usuario = ".$_SESSION["ID_persona"]);
-
-
-
-                            while ($metodo = mysqli_fetch_assoc($medico)) {
-                            ?>
-                                <option value="<?php echo $metodo['ID_usuario'] ?>"><?php echo $metodo['DNI'] . " - " . $metodo['Nombre_persona'] . " " . $metodo['Apellido_persona']  ?></option>
-                            <?php } ?>
-                        </select>
+                        <span class="details">Usuario</span>
+                        <input type="text" readonly value="<?php echo $_SESSION['apellido']." ".$_SESSION['nombre']; ?>">
                     </div>
 
                     <div class="input-box">
                         <span class="details">Estado Tarea</span>
                         <select name="estado" id="" required>
                             <?php
-                            require("db_general.php");
+                            require("../database/db_general.php");
                             $est_tarea = $conexionGeneral->query("SELECT * FROM estado");
                             while ($metodo = mysqli_fetch_row($est_tarea)) {
                             ?>
@@ -55,8 +45,8 @@
                     </div>
 
                     <div class="input-box">
-                        <span class="details">Horario</span>
-                        <input type="time" class="fecha-horario" name="horario" required>
+                        <span class="details">Hora</span>
+                        <input type="time" class="fecha-horario" name="hora" required>
                     </div>
 
                     <span class="input-box">Descripción</span>
@@ -75,20 +65,19 @@
     <?php
     if (isset($_POST["aceptar"])) {
 
-        require("../database/db_general.php");
+        require("../database/db_medico.php");
 
-        $medico = $_POST["medico"];
         $estado = $_POST["estado"];
         $fecha = $_POST["fecha"];
-        $horario = $_POST["horario"];
+        $hora = $_POST["hora"];
         $descripcion = $_POST["descripcion"];
 
-        
-        $nuevaTarea = "INSERT INTO tareas (ID_usuario, ID_estado, fecha, horario, observaciones) VALUES 
-        ('$medico','$estado','$fecha','$horario','$descripcion')";
-        $resultado = $conexionGeneral->query($nuevaTarea);
+        $nuevaTarea = "INSERT INTO tareas(ID_usuario_tarea, ID_estado_tarea, Fecha_tarea, Hora_tarea, Descripcion_tarea)  VALUES 
+        ('$datoUsuario','$estado','$fecha','$hora', '$descripcion')";
+        $resultado = $conexion->query($nuevaTarea);
 
-        echo "<script type=\"text/javascript\"> window.location='lista_tarea.php';</script>";
+        echo "<script type=\"text/javascript\">window.location='lista_tarea.php';</script>";
+
     } ?>
 
 

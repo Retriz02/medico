@@ -22,13 +22,18 @@
                     </a>
                 </div>
                 <div class="container-links">
+                    <a href="../tareas/lista_tarea.php" target="paginaPrincipal">
+                        <input type="button" value="Tareas">
+                    </a>
+                </div>
+                <div class="container-links">
                     <a href="../consultorio/lista_consultorio.php" target="paginaPrincipal">
-                        <input type="button" value="Consultorio">
+                        <input type="button" value="Consultorios">
                     </a>
                 </div>
                 <div class="container-links">
                     <a href="../sanatorio/lista_sanatorio.php" target="paginaPrincipal">
-                        <input type="button" value="Sanatorio">
+                        <input type="button" value="Sanatorios">
                     </a>
                 </div>
                 <div class="container-links">

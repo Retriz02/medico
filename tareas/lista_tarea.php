@@ -6,25 +6,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Tablas</title>
-    <link rel="stylesheet" href="estiloLista.css">
+    <link rel="stylesheet" href="../styles/estilo_listas.css">
 </head>
 
 <body>
     <?php
+        session_start();
+        $datoUsuario = $_SESSION["ID_usuario"];
 
-    require("db_general.php");
+        require("../database/db_medico.php");
 
-    $sql = "SELECT tareas.*, estado.Descripcion_estado
-    FROM tareas
-    left join estado on tareas.ID_estado = estado.ID_estado";
+        /*seleciono todas las tareas donde el usuario de la tarea coincida con el que tiene iniciado la sesion
+        y mediante el LEFT JOIN consultamos el valor de la clave foranea de estado */
+        $sql = "SELECT tareas.*, estado.*
+        FROM tareas
+        LEFT JOIN db_general.estado on tareas.ID_estado_tarea = estado.ID_estado
+        WHERE ID_usuario_tarea = $datoUsuario";
 
-    $resultado = $mysqli->query($sql);
+        $resultado = $conexion->query($sql);
     ?>
     <form action="" method="POST">
         <div class="container">
             <div class="title">
                 <p><b>Lista de las tareas</b></p>
-                <a href="agregarTarea.php" target="paginaPrincipal">
+                <a href="agregar_tarea.php" target="paginaPrincipal">
                     <input type="button" value="Agregar Tarea" class="blue">
                 </a>
             </div>
@@ -43,36 +48,36 @@
                     </thead>
                     <tbody>
                         <?php
-                        while ($Tareas = mysqli_fetch_assoc($resultado)) {
+                        while ($tarea = mysqli_fetch_assoc($resultado)) {
                         ?>
                             <tr>
 
-                                <td><?php echo $Tareas["fecha"] ?></td>
+                                <td><?php echo $tarea["Fecha_tarea"] ?></td>
 
-                                <td><?php echo $Tareas["horario"] ?></td>
+                                <td><?php echo $tarea["Hora_tarea"] ?></td>
 
-                                <td><?php echo $Tareas["observaciones"] ?></td>
+                                <td><?php echo $tarea["Descripcion_tarea"] ?></td>
 
-                                <td><a href="eliminarTarea.php?id= <?php echo $Tareas["ID_tarea"] ?>" class="botones">Eliminar</a></td>
+                                <td><a href="eliminar_tarea.php?id=<?php echo $tarea["ID_tarea"] ?>" class="botones">Eliminar</a></td>
 
-                                <td><a href="modificarTarea.php?id= <?php echo $Tareas["ID_tarea"] ?>" class="botones">Modificar</a></td>
+                                <td><a href="modificar_tarea.php?id=<?php echo $tarea["ID_tarea"] ?>" class="botones">Modificar</a></td>
 
                                 <?php
-                                if ($Tareas['Descripcion_estado'] == "Abierto") {
+                                if ($tarea['Descripcion_estado'] == "Abierto") {
                                     echo "<td class='yellow'>";
-                                    echo $Tareas["Descripcion_estado"], "</td>";
+                                    echo $tarea["Descripcion_estado"], "</td>";
                                 }
-                                if ($Tareas['Descripcion_estado'] == "Cerrado") {
+                                if ($tarea['Descripcion_estado'] == "Cerrado") {
                                     echo "<td class='green'>";
-                                    echo $Tareas["Descripcion_estado"], "</td>";
+                                    echo $tarea["Descripcion_estado"], "</td>";
                                 }
-                                if ($Tareas['Descripcion_estado'] == "Cancelado") {
+                                if ($tarea['Descripcion_estado'] == "Cancelado") {
                                     echo "<td class='red'>";
-                                    echo $Tareas["Descripcion_estado"], "</td>";
+                                    echo $tarea["Descripcion_estado"], "</td>";
                                 }
-                                if ($Tareas['Descripcion_estado'] == "Postergado") {
+                                if ($tarea['Descripcion_estado'] == "Postergado") {
                                     echo "<td class='orange'>";
-                                    echo $Tareas["Descripcion_estado"], "</td>";
+                                    echo $tarea["Descripcion_estado"], "</td>";
                                 }
                                 ?>
 

@@ -11,12 +11,13 @@
 
 <body>
     <?php 
-        require("db_general.php");
+        session_start();
+        $datoUsuario = $_SESSION["ID_usuario"];
+
+        require("../database/db_medico.php");
 
         $ID_tarea = $_GET['id'];
-        
-        $sql = $mysqli->query("SELECT * FROM tareas WHERE ID_tarea = $ID_tarea");
-
+        $sql = $conexion->query("SELECT * FROM tareas WHERE ID_tarea = $ID_tarea");
         $dato = mysqli_fetch_assoc($sql);
     ?>
     
@@ -27,28 +28,17 @@
     <fieldset>
                 <legend></legend>
                 <div class="user-details">
-                    <div class="input-box">
-                        <span class="details">Promotor</span>
-                        <select name="promotor" id="">
-                            <?php
-                            require("db_general.php");
-                            $promotor = $mysqli->query("SELECT usuarios.*, persona.Nombre_persona, persona.Apellido_persona, persona.DNI
-                            FROM usuarios
-                            left join persona on usuarios.ID_persona_usuario = persona.ID_persona 
-                            where ID_persona_usuario = 7");
-                            while ($metodo = mysqli_fetch_assoc($promotor)) {
-                            ?>
-                                <option value="<?php echo $metodo['ID_usuario'] ?>" <?php if ($metodo['ID_usuario'] == $dato['ID_persona_usuario']) echo 'selected' ?>><?php echo $metodo['DNI'] . " - " . $metodo['Nombre_persona'] . " " . $metodo['Apellido_persona']  ?></option>
-                            <?php } ?>
-                        </select>
+                <div class="input-box">
+                        <span class="details">Usuario</span>
+                        <input type="text" readonly value="<?php echo $_SESSION['apellido']." ".$_SESSION['nombre']; ?>">
                     </div>
 
                     <div class="input-box">
                         <span class="details">Estado Tarea</span>
                         <select name="estado" id="" required>
                             <?php
-                            require("db_general.php");
-                            $est_tarea = $mysqli->query("SELECT * FROM estado");
+                            require("../database/db_general.php");
+                            $est_tarea = $conexionGeneral->query("SELECT * FROM estado");
                             while ($metodo = mysqli_fetch_row($est_tarea)) {
                             ?>
                                 <option value="<?php echo $metodo[0] ?>" <?php if ($metodo[0] == $dato['ID_estado']) echo 'selected' ?>><?php echo $metodo[0] . " - " . $metodo[1]  ?></option>
@@ -58,22 +48,22 @@
 
                     <div class="input-box">
                         <span class="details">Fecha</span>
-                        <input type="date" class="fecha-horario" name="fecha" required value=<?php echo $dato["fecha"]; ?>>
+                        <input type="date" class="fecha-horario" name="fecha" required value=<?php echo $dato["Fecha_tarea"]; ?>>
                     </div>
                     <div class="input-box">
                         <span class="details">Horario</span>
-                        <input type="time" class="fecha-horario" name="horario" required value=<?php echo $dato["horario"]; ?>>
+                        <input type="time" class="fecha-horario" name="hora" required value=<?php echo $dato["Hora_tarea"]; ?>>
                     </div>
 
                     <span class="input-box">Descripción</span>
                     <div class="observacion-box">
-                        <textarea class="textarea-observacion" placeholder="Escriba la Tarea..." maxlength="200" cols="10" rows="5" name="descripcion"><?php echo $dato["observaciones"]; ?></textarea>
+                        <textarea class="textarea-observacion" placeholder="Describa la Tarea..." maxlength="200" cols="10" rows="5" name="descripcion"><?php echo $dato["Descripcion_tarea"]; ?></textarea>
                     </div>
                 </div>
             </fieldset>
 
             <div class="botones">
-                <a href="listaTarea.php">Cancelar</a>
+                <a href="lista_tarea.php">Cancelar</a>
                 <input type="submit" value="Aceptar" name="aceptar">
             </div>
         </form>
@@ -81,18 +71,16 @@
     <?php
     if (isset($_POST["aceptar"])) {
 
-        require("db_general.php");
+        require("../database/db_medico.php");
 
-        $promotor = $_POST["promotor"];
-        $estadota = $_POST["estado"];
+        $estado = $_POST["estado"];
         $fecha = $_POST["fecha"];
-        $horario = $_POST["horario"];
+        $hora = $_POST["hora"];
         $descripcion = $_POST["descripcion"];
 
         
-        $modifTarea = "UPDATE tareas SET ID_usuario = '$promotor', ID_estado = '$estadota', 
-        fecha = '$fecha', horario = '$horario', observaciones = '$descripcion' WHERE ID_tarea = $ID_tarea";
-        $resultado = $mysqli->query($modifTarea);
+        $modifTarea = "UPDATE tareas SET ID_estado_tarea = '$estado', Fecha_tarea = '$fecha', Hora_tarea = '$hora', Descripcion_tarea = '$descripcion' WHERE ID_tarea = $ID_tarea";
+        $resultado = $conexion->query($modifTarea);
 
         echo "<script type=\"text/javascript\">window.location='listaTarea.php';</script>";
     } ?>

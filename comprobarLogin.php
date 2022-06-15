@@ -1,6 +1,8 @@
 <?php
     require("database/db_general.php");
 
+    //ACLARACION: Formulario = index.php | Es el login donde nos identificamos
+    
     $usuario = $_POST["usuario"]; //se toma del formulario el usuario
     $password = $_POST["password"]; //se toma del formulario la contrasenia
     
@@ -26,11 +28,13 @@
         session_start();
 
         //definimos sesiones diferentes para guardar los datos del usuario que seran utiles en otras pantallas
-        $_SESSION["usuario"] = $_POST["usuario"];
         $_SESSION["ID_persona"] = $dato["ID_persona"];
+        $_SESSION["ID_area"] = $dato["ID_area"];
+        $_SESSION["ID_usuario"] = $dato["ID_usuario"];
+        
+        $_SESSION["usuario"] = $_POST["usuario"]; //usuario ingresado en el formulario
+        $_SESSION["apellido"] = $dato["Apellido_persona"];   
         $_SESSION["nombre"] = $dato["Nombre_persona"];
-        $_SESSION["apellido"] = $dato["Apellido_persona"];
-
         $_SESSION["nombreUsuario"] = $dato["nombreUsuario"];
         $_SESSION["area"] = $dato["Descripcion_area"];
 
