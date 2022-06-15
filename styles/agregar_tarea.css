@@ -81,7 +81,13 @@
         .input-box-domicilio select {
             width: 70%;
         }
-        
+        .observacion-box .details{
+            font-weight: 500;
+            margin-bottom: 1%;
+            display: block;
+            font-style: oblique;
+            width: 100%;
+        }
         .user-details .observacion-box {
             padding: 1%;
             width: 100%;

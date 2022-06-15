@@ -10,130 +10,112 @@
 </head>
 
 <body>
+  <?php 
+        session_start();
+        //si no existe una sesion lo lleva al login
+        $varsesion = $_SESSION['usuario'];
+        if ($varsesion == null || $varsesion = '') {
+            header("location:../index.php");
+        }
+
+        require("../database/db_medico.php");
+        $datoUsuario = $_SESSION["ID_usuario"];
+
+        $ID_agenda = $_GET['id'];
+        $sql = $conexion->query("SELECT * FROM agenda WHERE ID_agenda = $ID_agenda");
+        $dato = mysqli_fetch_assoc($sql);
+    ?>
+
   <div class="container">
     <div class="title">Modificar Agenda</div>
     <form action="#" method="post">
+
       <fieldset>
-        <legend>Medico y Usuario</legend>
+        <legend></legend>
         <div class="user-details">
+          <div class="input-box">
+            <span class="details">Usuario</span>
+            <input type="text" readonly value="<?php echo $_SESSION['apellido']." ".$_SESSION['nombre']; ?>">
+          </div>
           <div class="input-box">
             <span class="details">Medico</span>
             <select name="medico" id="">
               <?php
-                require("medicos.php");
+                require("../database/db_medico.php");
+
                 $medico = $conexion->query("SELECT medico.*, persona.*
                 FROM medico
-                LEFT JOIN general.persona on medico.ID_persona_medico = persona.ID_persona order by NombreP");
-                
+                LEFT JOIN db_general.persona on medico.ID_persona_medico = persona.ID_persona order by Apellido_persona");
                 while ($metodo = mysqli_fetch_assoc($medico)) {
               ?>
-
               <option value="<?php echo $metodo['ID_medico'] ?>">
-                <?php echo $metodo['DNI'] . " - " . $metodo['NombreP'] . " " . $metodo['ApellidoP']  ?></option>
+                <?php echo $metodo['DNI'] . " - " . $metodo['Apellido_persona'] . " " . $metodo['Nombre_persona']  ?>
+              </option>
               <?php } ?>
-              
             </select>
           </div>
 
           <div class="input-box">
-            <span class="details">Usuario</span>
-            <select name="usuario" id="">
+            <span class="details">Estado Tarea</span>
+            <select name="estado" id="" required>
               <?php
-              require("general.php");
-              $usuario = $conexionGeneral->query("SELECT usuario.*, persona.NombreP, persona.ApellidoP, persona.DNI
-              FROM usuario
-              LEFT JOIN persona on usuario.ID_persona_usuario = persona.ID_persona order by NombreP");
-              while ($metodo1 = mysqli_fetch_assoc($usuario)) {
+                require("../database/db_general.php");
+                $est_tarea = $conexionGeneral->query("SELECT * FROM estado");
+                while ($metodo = mysqli_fetch_row($est_tarea)) {
               ?>
-              <option value="<?php echo $metodo1['ID_usuario'] ?>">
-                <?php echo $metodo1['DNI'] . " - " . $metodo1['NombreP'] . " " . $metodo1['ApellidoP']  ?></option>
+              <option value="<?php echo $metodo[0] ?>"
+                <?php if ($metodo[0] == $dato['ID_estado_agenda']) echo 'selected' ?>>
+                <?php echo $metodo[0] . " - " . $metodo[1]  ?></option>
               <?php } ?>
             </select>
           </div>
 
-          <fieldset>
-            <legend>Domicilio</legend>
-
-            <div class="input-box-domicilio">
-              <span class="details">Dirección</span>
-              <select name="domicilio" id="" required>
-                <?php
-            require("general.php");
-            $domicilio = $conexionGeneral->query("SELECT domicilio.*,localidades.*, tipobarrio.*, tipoedificio.*
-              FROM domicilio 
-              LEFT JOIN localidades on domicilio.ID_localidad_domicilio= localidades.ID_localidad
-              LEFT JOIN tipobarrio on domicilio.ID_tipoBarrio_domicilio = tipobarrio.ID_tipoBarrio
-              LEFT JOIN tipoedificio on domicilio.ID_tipoEdificio_domicilio = tipoedificio.ID_tipoEdificio");
-            while ($metodo = mysqli_fetch_assoc($domicilio)) {
-            ?>
-                <option value="<?php echo $metodo['ID_domicilio'] ?>">
-                  <?php echo  "Provincias: " . $metodo['ID_provincia_localidad'] . " | Localidad:  " . $metodo['Nombre_localidad'] . " | Barrio: " . $metodo['ID_barrio_tipoBarrio']  . " | Manzana: " . $metodo['Manzana']  . " | Sector/Parcela: " . $metodo['Sector/Parcela']  . " | Departamento: " . $metodo['Departamento']  . " | Piso: " . $metodo['Piso'] . " | Torre " . $metodo['Torre'] . " | Calle: " . $metodo['Calle'] . " | Numero: " . $metodo['Numero']  ?>
-                </option>
-                <?php } ?>
-              </select>
-              <button id="">Ver</button>
-              <button id="open">+</button>
-            </div>
-          </fieldset>
-
-          <fieldset>
-            <legend>Fecha y Hora</legend>
-            <div class="user-details">
-              <div class="input-box">
-                <span class="details">Fecha</span>
-                <input type="date" class="fecha-horario" name="fecha" required>
-              </div>
-              <div class="input-box">
-                <span class="details">Horario</span>
-                <input type="time" class="fecha-horario" name="horario" required>
-              </div>
-            </div>
-          </fieldset>
-
-          <fieldset>
-            <legend>Observación</legend>
-            <div class="user-details">
-              <div class="observacion-box">
-                <textarea class="textarea-observacion" placeholder="Escriba sus observaciones..." maxlength="1000"
-                  cols="10" rows="5" name="observaciones"></textarea>
-              </div>
-
-            </div>
-          </fieldset>
-
-          <div class="botones">
-            <a href="listaAgenda1.php">Cancelar</a>
-            <input type="submit" value="Aceptar" name="aceptar">
+          <div class="input-box">
+            <span class="details">Fecha</span>
+            <input type="date" class="fecha-horario" name="fecha" required value=<?php echo $dato["Fecha_agenda"]; ?>>
           </div>
+          <div class="input-box">
+            <span class="details">Horario</span>
+            <input type="time" class="fecha-horario" name="hora" required value=<?php echo $dato["Hora_agenda"]; ?>>
+          </div>
+
+          <div class="observacion-box">
+            <span class="details">Descripción</span>
+            <textarea class="textarea-observacion" placeholder="Describa la Agenda..." maxlength="200" cols="10"
+              rows="5" name="descripcion"><?php echo $dato["Descripcion_tarea"]; ?></textarea>
+          </div>
+        </div>
+      </fieldset>
+
+      <div class="botones">
+        <a href="lista_agenda.php">Cancelar</a>
+        <input type="submit" value="Aceptar" name="aceptar">
+      </div>
     </form>
   </div>
   <?php
-  if (isset($_POST["aceptar"])) {
- 
-        require("medicos.php");
-        
-        $ID_agenda = $_GET["id"];
+    if (isset($_POST["aceptar"])) {
+
+        require("../database/db_medico.php");
+
         $medico = $_POST["medico"];
-        $usuario = $_POST["usuario"];
-        $domicilio = $_POST["domicilio"];
+        $usuario = $datoUsuario;
         $fecha = $_POST["fecha"];
-        $horario = $_POST["horario"];
-        $observacion = $_POST["observaciones"];
+        $hora = $_POST["hora"];
+        $decripcion = $_POST["descripcion"];
+        $estado = $_POST["estado"];
 
         $modificarAgenda= "UPDATE agenda SET  
         ID_medico_agenda = '$medico',
         ID_usuario_agenda = '$usuario',  
-        ID_domicilio_agenda = '$domicilio',  
-        fecha = '$fecha', Horario = '$horario', 
-        observacion = '$observacion' WHERE ID_agenda = '$ID_agenda'";
+        Fecha_agenda = '$fecha', 
+        Hora_agenda = '$hora', 
+        Descripcion_agenda = '$decripcion'
+        ID_estado_agenda = '$estado' WHERE ID_agenda = '$ID_agenda'";
         $resultado = $conexion->query($modificarAgenda);
 
-        echo "<script type=\"text/javascript\"> window.location='listaAgenda1.php';</script>";
         
-  
-  } ?>
-
-
+    } ?>
 </body>
 
 </html>

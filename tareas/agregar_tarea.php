@@ -6,12 +6,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../styles/agregar_tarea.css">
-    <title>Gestionar Tareas</title>
+    <title>Tareas</title>
 </head>
 
 <body>
     <?php 
-        session_start();
+        session_start();      
+        //si no existe una sesion lo lleva al login
+        $varsesion = $_SESSION['usuario'];
+        if ($varsesion == null || $varsesion = '') {
+            header("location:../index.php");
+        }
+        
         $datoUsuario = $_SESSION["ID_usuario"];
     ?>
     <div class="container">
@@ -49,8 +55,8 @@
                         <input type="time" class="fecha-horario" name="hora" required>
                     </div>
 
-                    <span class="input-box">Descripción</span>
                     <div class="observacion-box">
+                        <span class="details">Descripción</span>
                         <textarea class="textarea-observacion" placeholder="Describa la tarea..." maxlength="200" cols="10" rows="5" name="descripcion"></textarea>
                     </div>
                 </div>

@@ -5,40 +5,50 @@
 }body{
     background-color: rgb(179, 179, 179);
     font-family: arial,helvetica,sans-serif;
-}.contenedor{
-    position: absolute;
-    left: 50%;
-    transform: translate(-50%);
-}.container{
-    margin-top: 8%;
-}.container-navegador{
-    width: 200px;
+}
+.container{
+    height: 100%;
+    width: 100%;
+    margin-top: 5%;
+   
+}
+
+
+.container-navegador{
+    width: 100%;
 }
 .titulos{
     color: blue;
     text-align:"center";
 }.container-navegador .container-links{
     text-align: center;
-    padding: 5px;
+    padding: 1%;
+   
 }.container-navegador input{
-    width: 190px;
-    height: 30px;
+    width: 100%;
+    height: 24px;
 }.container-navegador input:hover{
     background-color: rgb(207, 215, 218);
 }
 
+.container-inputs-label{
+    font-weight: bold;
+    font-size: 70%;
+}
+
+
 
 .container-buscador{
-    padding: 5px;
-    width: 190px;
+    width: 100%;;
 }.container-buscador .container-inputs .container-inputs-label{
     color: rgb(20, 20, 20);
     display: block;
     padding: 5px;
 }.container-buscador .container-inputs #navegador{
-    width: 190px;
-    height: 30px;
+    width: 100%;
+    height: 24px;
 }.container-buscador .container-inputs input{
-    width: 190px;
-    height: 30px;
+    width: 100%;
+    height: 24px;
 }
+

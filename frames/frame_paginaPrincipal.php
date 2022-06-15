@@ -69,7 +69,7 @@
 
           </table>
         </div>
-        <button id="open">Cambiar Contraseña</button>
+        <a href="../contraseña/camContraseña.php"><button>Cambiar Contraseña</button></a>
       </fieldset>
     </div>
   </div>

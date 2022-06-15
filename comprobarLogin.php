@@ -39,7 +39,14 @@
         $_SESSION["area"] = $dato["Descripcion_area"];
 
         //redirigimos al usuario a la pantalla principal porque su sesion ya se encuentra iniciada
-        echo "<script type=\"text/javascript\">window.location='frames/index.php';</script>";
+        if ($_SESSION["area"] == "Comercial"){
+            echo "es comercial";
+        }elseif($_SESSION["area"] == "Auditoria Medica"){
+            echo "<script type=\"text/javascript\">window.location='index_auditoria.php';</script>";
+        }else{
+            echo "<script type=\"text/javascript\">window.location='index_general.php';</script>";
+        }
+
     } else {
         //si los datos que ingreso en el formulario no son correctos le llevara nuevamente hacia alli
         echo "<script type=\"text/javascript\">alert('Los datos que se han ingresado no son correctos'); window.location='index.php';</script>";

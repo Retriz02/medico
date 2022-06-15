@@ -5,31 +5,38 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../estilos_comercial/agregar_entrevista.css">
+    <link rel="stylesheet" href="../estilos_comercial/agregarEntrevistas.css">
     <title>Document</title>
 </head>
 
+<?php 
+    session_start();
+    $datoUsuario = $_SESSION["ID_usuario"];
+  
+?>
+
 <body>
     <div class="container">
-        <div class="title">Gestionar Medico</div>
+        <div class="title">Gestionar Referidos</div>
         <form action="" method="post">
             <fieldset>
-                <legend>Datos del Medico</legend>
+                <legend>Datos del Referido</legend>
                 <div class="user-details">
                     <div class="input-box">
                         <span class="details">Persona</span>
                         <select name="persona" id="">
                             <?php
-                            require("../database/db_general.php");
-                            $persona = $conexionGeneral->query("SELECT * FROM persona order by Apellido_persona");
-                            while ($metodo = mysqli_fetch_assoc($persona)) {
+                            require("../../database/db_general.php");
+                            $persona = $mysqli->query("SELECT * FROM persona order by Nombre_persona");
+                            while ($metodo1 = mysqli_fetch_assoc($persona)) {
                             ?>
-                                <option value="<?php echo $metodo['ID_persona'] ?>"><?php echo $metodo['DNI'] . " - " . $metodo['Apellido_persona'] . " " .  $metodo['Nombre_persona'] ?></option>
+                                <option value="<?php echo $metodo1['ID_persona'] ?>"><?php echo $metodo1['DNI'] . " - " . $metodo1['Nombre_persona'] . " " .  $metodo1['Apellido_persona'] ?></option>
                             <?php
                             }
                             ?>
                         </select>
-                        <a href="../medico/agregarPersona.php" target="rellenarDatos">+</a>
+                        <a href="agregarPersona.php" target="rellenarDatos">+</a>
+                       
 
                     </div>
 
@@ -44,7 +51,7 @@
                                 <option value="<?php echo $metodo[0] ?>"><?php echo $metodo[1] ?></option>
                             <?php } ?>
                         </select>
-                        <a href="../Referidos/agregarEmpresa.php" target="rellenarDatos">+</a>
+                        <a href="agregarEmpresa.php" target="rellenarDatos">+</a>
 
                     </div>
                 </div>
@@ -67,7 +74,7 @@
                             <option value="<?php echo $metodo1["ID_contacto"] ?>"><?php echo $metodo1["Descripcion_tipoContacto"], " - ", $metodo1["Valor"] ?></option>
                         <?php } ?>
                     </select>
-                    <a href="../Referidos/agregarContacto.php" target="rellenarDatos">+</a>
+                    <a href="agregarContacto.php" target="rellenarDatos">+</a>
                 </div>
             </fieldset>
 
@@ -90,7 +97,7 @@
                                 <option value="<?php echo $metodo['ID_domicilio'] ?>"><?php echo  "Provincia: " . $metodo['ID_provincia_localidad'] . " | Localidad:  " . $metodo['Nombre_localidad'] . " | Barrio: " . $metodo['ID_barrio_tipoBarrio']  . " | Manzana: " . $metodo['Manzana']  . " | Sector/Parcela: " . $metodo['Sector_Parcela']  . " | Departamento: " . $metodo['Departamento']  . " | Piso: " . $metodo['Piso'] . " | Torre " . $metodo['Torre'] . " | Calle: " . $metodo['Calle'] . " | Numero: " . $metodo['Numero']  ?></option>
                             <?php } ?>
                         </select>
-                        <a href="../Referidos/agregarDomicilio.php" target="rellenarDatos">+</a>
+                        <a href="agregarDomicilio.php" target="rellenarDatos">+</a>
 
                     </div>
 
@@ -110,11 +117,12 @@
                 </div>
             </fieldset>
             <div class="botones">
-                <a href="agregarEntrevistas.php" target="paginaPrincipal">Cancelar</a>
+                <a href="listaReferidos.php" target="paginaPrincipal">Cancelar</a>
                 <input type="submit" value="Aceptar" name="aceptar">
             </div>
         </form>
-        <?php
+    </div>
+    <?php
     if (isset($_POST["aceptar"])) {
         require("../../database/db_comercial.php");
 
@@ -124,7 +132,7 @@
         $domicilio = $_POST["domicilio"];
         $tipodomicilio = $_POST["tipodomicilio"];
         $activo = 1;
-        $carga_referido = 1;
+        $carga_referido = $datoUsuario;
 
         $nuevoReferido = "INSERT INTO referidos (ID_persona_referido, ID_empresa_referido, ID_usuario_carga_referido,  ID_activo_referido) VALUES 
         ('$referido','$empresa','$carga_referido','$activo')";
@@ -140,10 +148,8 @@
         VALUES ('$referido', '$domicilio', '$tipodomicilio')";
         $resultado = $mysqli->query($domicilio);
 
-        echo "Referido Agregado";
+        echo "<script> window.location='listaReferidos.php' target='paginaPrincipal';</script>";
     } ?>
-    </div>
-    
 
 
 

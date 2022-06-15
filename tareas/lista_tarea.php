@@ -5,16 +5,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Tablas</title>
+    <title>Tareas</title>
     <link rel="stylesheet" href="../styles/estilo_listas.css">
 </head>
 
 <body>
     <?php
         session_start();
-        $datoUsuario = $_SESSION["ID_usuario"];
+        //si no existe una sesion lo lleva al login
+        $varsesion = $_SESSION['usuario'];
+        if ($varsesion == null || $varsesion = '') {
+            header("location:../index.php");
+        }
 
         require("../database/db_medico.php");
+        $datoUsuario = $_SESSION["ID_usuario"];
 
         /*seleciono todas las tareas donde el usuario de la tarea coincida con el que tiene iniciado la sesion
         y mediante el LEFT JOIN consultamos el valor de la clave foranea de estado */
@@ -41,8 +46,7 @@
                             <th class="stiky">Fecha</th>
                             <th class="stiky">Hora</th>
                             <th class="stiky">Descripción</th>
-                            <th class="stiky">Eliminar</th>
-                            <th class="stiky">Modificar</th>
+                            <th class="stiky">Opciones</th>
                             <th class="stiky">Estado</th>
                         </tr>
                     </thead>
@@ -58,9 +62,8 @@
 
                                 <td><?php echo $tarea["Descripcion_tarea"] ?></td>
 
-                                <td><a href="eliminar_tarea.php?id=<?php echo $tarea["ID_tarea"] ?>" class="botones">Eliminar</a></td>
-
-                                <td><a href="modificar_tarea.php?id=<?php echo $tarea["ID_tarea"] ?>" class="botones">Modificar</a></td>
+                                <td><a href="eliminar_tarea.php?id=<?php echo $tarea["ID_tarea"] ?>" class="botones">Eliminar</a>
+                                <a href="modificar_tarea.php?id=<?php echo $tarea["ID_tarea"] ?>" class="botones">Modificar</a></td>
 
                                 <?php
                                 if ($tarea['Descripcion_estado'] == "Abierto") {

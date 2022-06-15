@@ -53,8 +53,8 @@
                         <th class="stiky">Fecha</th>
                         <th class="stiky">Horario</th>
                         <th class="stiky">Observación</th>
-                        <th class="stiky">Estado</th>
                         <th class="stiky">Opciones</th>
+                        <th class="stiky">Estado</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -76,8 +76,11 @@
 
                         <td><?php echo $agenda["Hora_agenda"] ?></td>
 
-                        <td class="observacion" align="left"><?php echo $agenda["Observacion_agenda"] ?></td>
-
+                        <td class="observacion" align="left"><?php echo $agenda["Descripcion_agenda"] ?></td>
+                        <td>
+                            <a href="eliminar_agenda.php?id=<?php echo $agenda["ID_agenda"] ?>" class="botones">Eliminar</a>
+                            <a href="modificar_agenda.php?id=<?php echo $agenda["ID_agenda"] ?>" class="botones">Modificar</a>
+                        </td>
                         <?php 
                             if($agenda['Descripcion_estado'] == "Abierto"){
                                 echo "<td class='yellow'>".$agenda["Descripcion_estado"]. "</td>";
@@ -93,10 +96,7 @@
                             }
                         ?>
 
-                        <td>
-                            <a href="eliminar_agenda.php?id=<?php echo $agenda["ID_agenda"] ?>" class="botones">Eliminar</a>
-                            <a href="modificar_agenda.php?id=<?php echo $agenda["ID_agenda"] ?>" class="botones">Modificar</a>
-                        </td>
+                        
                     </tr>
                     <?php  } ?>
                 </tbody>

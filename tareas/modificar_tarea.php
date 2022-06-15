@@ -5,16 +5,21 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="agregarTarea.css">
-    <title>Document</title>
+    <link rel="stylesheet" href="../styles/agregar_tarea.css">
+    <title>Tareas</title>
 </head>
 
 <body>
     <?php 
         session_start();
-        $datoUsuario = $_SESSION["ID_usuario"];
+        //si no existe una sesion lo lleva al login
+        $varsesion = $_SESSION['usuario'];
+        if ($varsesion == null || $varsesion = '') {
+            header("location:../index.php");
+        }
 
         require("../database/db_medico.php");
+        $datoUsuario = $_SESSION["ID_usuario"];
 
         $ID_tarea = $_GET['id'];
         $sql = $conexion->query("SELECT * FROM tareas WHERE ID_tarea = $ID_tarea");
@@ -41,7 +46,7 @@
                             $est_tarea = $conexionGeneral->query("SELECT * FROM estado");
                             while ($metodo = mysqli_fetch_row($est_tarea)) {
                             ?>
-                                <option value="<?php echo $metodo[0] ?>" <?php if ($metodo[0] == $dato['ID_estado']) echo 'selected' ?>><?php echo $metodo[0] . " - " . $metodo[1]  ?></option>
+                                <option value="<?php echo $metodo[0] ?>" <?php if ($metodo[0] == $dato['ID_estado_tarea']) echo 'selected' ?>><?php echo $metodo[0] . " - " . $metodo[1]  ?></option>
                             <?php } ?>
                         </select>
                     </div>
@@ -55,8 +60,8 @@
                         <input type="time" class="fecha-horario" name="hora" required value=<?php echo $dato["Hora_tarea"]; ?>>
                     </div>
 
-                    <span class="input-box">Descripción</span>
                     <div class="observacion-box">
+                        <span class="details">Descripción</span>
                         <textarea class="textarea-observacion" placeholder="Describa la Tarea..." maxlength="200" cols="10" rows="5" name="descripcion"><?php echo $dato["Descripcion_tarea"]; ?></textarea>
                     </div>
                 </div>
@@ -82,7 +87,7 @@
         $modifTarea = "UPDATE tareas SET ID_estado_tarea = '$estado', Fecha_tarea = '$fecha', Hora_tarea = '$hora', Descripcion_tarea = '$descripcion' WHERE ID_tarea = $ID_tarea";
         $resultado = $conexion->query($modifTarea);
 
-        echo "<script type=\"text/javascript\">window.location='listaTarea.php';</script>";
+        echo "<script type=\"text/javascript\">window.location='lista_tarea.php';</script>";
     } ?>
 
 </body>
