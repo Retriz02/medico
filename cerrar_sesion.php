@@ -8,10 +8,11 @@
 </head>
 <body>
     <?php
+    //abre el gestor de archivo para destruir la sesion del usuario actual
     session_start();
-
     session_destroy();
 
+    //redirecciona al login (formulario de inicio de sesion)
     header("location:index.php");
     ?>
 </body>

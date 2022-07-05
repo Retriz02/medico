@@ -1,0 +1,50 @@
+/* QR "ver" estilo */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+body {
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    background: #ccc;
+}
+
+.container {
+    width: 280x;
+    height: 320px;
+    background: rgb(168, 168, 168);
+    padding: 30px 30px;
+    border-radius: 5px;
+}
+
+.container-inputs {
+    width: 100%;
+    height: 30px;
+}
+
+.container-inputs a {
+    padding-top: 3%;
+    display: inline-block;
+    text-decoration: none;
+    background: rgb(117, 112, 112);
+    width: 50%;
+    height: 30px;
+    text-align: center;
+    color: rgb(0, 0, 0);
+}
+.closebtn {
+    position: relative;
+    left: 90px;
+    bottom: 10px;
+    font-size: 30px;
+    margin-left: 20px;
+}.logo a{
+    color: #000;
+    text-decoration: none;
+}

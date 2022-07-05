@@ -28,25 +28,27 @@
         session_start();
 
         //definimos sesiones diferentes para guardar los datos del usuario que seran utiles en otras pantallas
-        $_SESSION["ID_persona"] = $dato["ID_persona"];
-        $_SESSION["ID_area"] = $dato["ID_area"];
-        $_SESSION["ID_usuario"] = $dato["ID_usuario"];
+        $_SESSION["ID_persona"] = $dato["ID_persona"]; //ID persona del usuario
+        $_SESSION["ID_area"] = $dato["ID_area"];    //ID area del usuario
+        $_SESSION["ID_usuario"] = $dato["ID_usuario"];  //ID usuario del usuario
         
         $_SESSION["usuario"] = $_POST["usuario"]; //usuario ingresado en el formulario
-        $_SESSION["apellido"] = $dato["Apellido_persona"];   
-        $_SESSION["nombre"] = $dato["Nombre_persona"];
-        $_SESSION["nombreUsuario"] = $dato["nombreUsuario"];
-        $_SESSION["area"] = $dato["Descripcion_area"];
+        $_SESSION["nombreUsuario"] = $dato["nombreUsuario"];  //usuario guardado en la base de dato
+
+        $_SESSION["apellido"] = $dato["Apellido_persona"]; //apellido del usuario
+        $_SESSION["nombre"] = $dato["Nombre_persona"];  //nombre del usuario
+        $_SESSION["area"] = $dato["Descripcion_area"];  //area del usuario
 
         //redirigimos al usuario a la pantalla principal porque su sesion ya se encuentra iniciada
         if ($_SESSION["area"] == "Comercial"){
             echo "es comercial";
         }elseif($_SESSION["area"] == "Auditoria Medica"){
+            //si la sesion llamada area correspone a Auditoria medica lo redirecciona al index de su area
             echo "<script type=\"text/javascript\">window.location='index_auditoria.php';</script>";
         }else{
+            //si la sesion llamada area correspone a un usuario general lo redirecciona al index generico
             echo "<script type=\"text/javascript\">window.location='index_general.php';</script>";
         }
-
     } else {
         //si los datos que ingreso en el formulario no son correctos le llevara nuevamente hacia alli
         echo "<script type=\"text/javascript\">alert('Los datos que se han ingresado no son correctos'); window.location='index.php';</script>";
